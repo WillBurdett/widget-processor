@@ -1,16 +1,24 @@
 package com.widgetmicroservice.widgetprocessor.controllers;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import com.widgetmicroservice.widgetprocessor.models.ProcessedWidget;
+import com.widgetmicroservice.widgetprocessor.models.Widget;
+import com.widgetmicroservice.widgetprocessor.services.WidgetProcessorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "processor")
 public class WidgetProcessorController {
 
-    @RequestMapping(method = RequestMethod.POST, path = "/{num}")
-    private String helloWorld(@PathVariable Long num){
-        return "Hello number " + num;
+    private final WidgetProcessorService widgetProcessorService;
+
+    @Autowired
+    public WidgetProcessorController(WidgetProcessorService widgetProcessorService) {
+        this.widgetProcessorService = widgetProcessorService;
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    private ProcessedWidget helloWorld(@RequestBody Widget widget){
+        return widgetProcessorService.processWidget(widget);
     }
 }
