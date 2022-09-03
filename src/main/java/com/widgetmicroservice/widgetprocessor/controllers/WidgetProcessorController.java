@@ -25,7 +25,7 @@ public class WidgetProcessorController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/{id}")
-    private ProcessedWidget helloWorld(@PathVariable Long id) throws Exception {
-        return widgetProcessorService.processWidget(id);
+    private void processWidget(@PathVariable Long id) throws Exception {
+        widgetProcessorService.processWidget(id);
     }
 }
