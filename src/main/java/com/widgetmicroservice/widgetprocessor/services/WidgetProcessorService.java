@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.widgetmicroservice.widgetprocessor.enums.Gender;
 import com.widgetmicroservice.widgetprocessor.models.ProcessedWidget;
 import com.widgetmicroservice.widgetprocessor.models.Widget;
+import com.widgetmicroservice.widgetprocessor.util.FeignServiceUtil;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -19,30 +21,40 @@ import java.util.Scanner;
 
 @Service
 public class WidgetProcessorService {
+
+
+    private final FeignServiceUtil feignServiceUtil;
+
+    @Autowired
+    public WidgetProcessorService(FeignServiceUtil feignServiceUtil) throws Exception {
+        this.feignServiceUtil = feignServiceUtil;
+    }
+
     public void processWidget(Long id) throws Exception {
         try {
-            URL url = new URL("http://localhost:8080/widgets/" + id);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.connect();
+//            URL url = new URL("http://localhost:8080/widgets/" + id);
+//            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//            conn.setRequestMethod("GET");
+//            conn.connect();
+//
+//            // check response code
+//            int responseCode = conn.getResponseCode();
+//
+//            // 200 OK
+//            if (responseCode != 200) {
+//                throw new RuntimeException("HttpResponseCode: " + responseCode);
+//            } else {
+//                StringBuilder informationString = new StringBuilder();
+//                Scanner scanner = new Scanner(url.openStream());
+//
+//                while(scanner.hasNext()){
+//                    informationString.append(scanner.nextLine());
+//                }
+//                scanner.close();
 
-            // check response code
-            int responseCode = conn.getResponseCode();
+//                sendProcessedWidget(parse(informationString.toString(), id));
 
-            // 200 OK
-            if (responseCode != 200) {
-                throw new RuntimeException("HttpResponseCode: " + responseCode);
-            } else {
-                StringBuilder informationString = new StringBuilder();
-                Scanner scanner = new Scanner(url.openStream());
-
-                while(scanner.hasNext()){
-                    informationString.append(scanner.nextLine());
-                }
-                scanner.close();
-
-                sendProcessedWidget(parse(informationString.toString(), id));
-            }
+            System.out.println(feignServiceUtil.getWidgetById(id));
         } catch (Exception e){
             throw new Exception(e.getMessage());
         }
