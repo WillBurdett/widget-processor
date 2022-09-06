@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(value = "widget-processor-feign", url = "http://localhost:8080/widgets")
+@FeignClient(value = "widget-service-feign", url = "http://localhost:8080/widgets")
 public interface FeignServiceUtil {
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}", produces = "application/json")
