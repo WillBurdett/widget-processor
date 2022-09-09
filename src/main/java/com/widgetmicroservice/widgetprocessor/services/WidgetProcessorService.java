@@ -31,8 +31,8 @@ public class WidgetProcessorService {
     }
 
     public static Integer calculateBmr(Widget widget){
-        Double calc = 10 * widget.getWeight() + 6.25 * widget.getHeight() - 5 * widget.getAge();
-        return widget.getGender() == Gender.MALE ? Integer.parseInt(String.valueOf(Math.round(calc + 5))) : Integer.parseInt(String.valueOf(Math.round(calc - 16)));
+        Double calc = (10 * widget.getWeight()) + (6.25 * widget.getHeight()) - (5 * widget.getAge());
+        return widget.getGender() == Gender.MALE ? Integer.parseInt(String.valueOf(Math.round(calc + 5))) : Integer.parseInt(String.valueOf(Math.round(calc - 161)));
     }
 
     public static ProcessedWidget createProcessedWidget(Widget widget, Long id){
