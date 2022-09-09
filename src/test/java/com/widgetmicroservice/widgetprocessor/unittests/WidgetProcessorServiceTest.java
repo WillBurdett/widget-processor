@@ -30,12 +30,23 @@ class WidgetProcessorServiceTest {
     FeignServiceUtil feignServiceUtil;
 
     @Test
-    void calculateBmr_MifflinStJeorEquation() {
+    void calculateBmr_MaleMifflinStJeorEquation() {
         // given
         Widget widget = new Widget(1L, "Bob", "Smith", 20, Gender.MALE, 150.0, 80.0);
         // when
         Integer actual = undertest.calculateBmr(widget);
         Integer expected = 1643;
+        // then
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void calculateBmr_FemaleMifflinStJeorEquation() {
+        // given
+        Widget widget = new Widget(1L, "Sally", "Smith", 20, Gender.FEMALE, 150.0, 80.0);
+        // when
+        Integer actual = undertest.calculateBmr(widget);
+        Integer expected = 1477;
         // then
         assertThat(actual).isEqualTo(expected);
     }
