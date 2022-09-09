@@ -1,12 +1,11 @@
 package com.widgetmicroservice.widgetprocessor.unittests;
 
 import com.widgetmicroservice.widgetprocessor.enums.Gender;
+import com.widgetmicroservice.widgetprocessor.models.ProcessedWidget;
 import com.widgetmicroservice.widgetprocessor.models.Widget;
 import com.widgetmicroservice.widgetprocessor.services.WidgetProcessorService;
 import com.widgetmicroservice.widgetprocessor.util.FeignServiceUtil;
 import com.widgetmicroservice.widgetprocessor.util.FeignSummaryUtil;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +51,24 @@ class WidgetProcessorServiceTest {
     }
 
     @Test
-    void createProcessedWidget() {
+    void createProcessedWidget_MaleHappyPath() {
+        // given
+        Widget widget = new Widget(1L, "Bob", "Smith", 20, Gender.MALE, 150.0, 80.0);
+        // when
+        ProcessedWidget actual = undertest.createProcessedWidget(widget, widget.getId());
+        ProcessedWidget expected = new ProcessedWidget(1L, "Bob", "Smith", 20, Gender.MALE, 150.0, 80.0, 1643);
+        // then
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void createProcessedWidget_FemaleHappyPath() {
+        // given
+        Widget widget = new Widget(1L, "Sally", "Smith", 20, Gender.FEMALE, 150.0, 80.0);
+        // when
+        ProcessedWidget actual = undertest.createProcessedWidget(widget, widget.getId());
+        ProcessedWidget expected = new ProcessedWidget(1L, "Sally", "Smith", 20, Gender.FEMALE, 150.0, 80.0, 1477);
+        // then
+        assertThat(actual).isEqualTo(expected);
     }
 }
