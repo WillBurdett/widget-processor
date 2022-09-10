@@ -74,6 +74,19 @@ class WidgetProcessorServiceTest {
     }
 
     @Test
+    void processWidget_MaleHappyPath() throws Exception {
+        // given
+        Widget widget = new Widget(1L, "Bob", "Smith", 20, Gender.MALE, 150.0, 80.0);
+        ProcessedWidget processedWidget = new ProcessedWidget(1L, "Bob", "Smith", 20, Gender.MALE, 150.0, 80.0, 1643);
+        when(feignServiceUtil.getWidgetById(widget.getId())).thenReturn(widget);
+        // when
+        undertest.processWidget(widget.getId());
+        // then
+        verify(feignServiceUtil, times(1)).getWidgetById(1L);
+        verify(feignSummaryUtil, times(1)).sendProcessedWidgetToSummary(processedWidget);
+    }
+
+    @Test
     void processWidget_FemaleHappyPath() throws Exception {
         // given
         Widget widget = new Widget(1L, "Sally", "Smith", 20, Gender.FEMALE, 150.0, 80.0);
