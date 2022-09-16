@@ -1,17 +1,11 @@
 package com.widgetmicroservice.widgetprocessor.controllers;
 
-import com.widgetmicroservice.widgetprocessor.models.ProcessedWidget;
-import com.widgetmicroservice.widgetprocessor.models.Widget;
 import com.widgetmicroservice.widgetprocessor.services.WidgetProcessorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "processor")
